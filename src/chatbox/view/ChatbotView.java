@@ -1,7 +1,8 @@
 package chatbox.view;
-import javax.swing.JOptionPane;
 
+import javax.swing.JOptionPane;
 import chatbot.controller.ChatboxAppController;
+import chatbot.model.Chatbot;
 
 public class ChatbotView
 {
@@ -11,11 +12,17 @@ public class ChatbotView
 		this.baseController = baseController;
 	}
 	
-	public String showChatbot(String currentInput) {
+	//displays all of the text chatbot is saying
+	public String showChatbotDialog(String currentInput) {
 		String result = "";
 		
-		JOptionPane.showMessageDialog(null,"Hello, " + currentInput);
-		result = JOptionPane.showInputDialog(null, "Are you done?");
+		result = JOptionPane.showInputDialog(null, baseController.getMyChatbot().getName() + " says: " + currentInput);
+		
 		return result;
+	}
+	
+	//displays the chatbots message
+	public void showChatbotMessage(String currentInput) {
+		JOptionPane.showMessageDialog(null, baseController.getMyChatbot().getName() + " says: " + currentInput);
 	}
 }
