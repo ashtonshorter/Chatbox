@@ -2,6 +2,7 @@ package chatbot.controller;
 
 import javax.swing.JOptionPane;
 
+import chatbox.view.ChatbotPanel;
 import chatbot.model.Chatbot;
 import chatbox.view.ChatbotFrame;
 import chatbox.view.ChatbotView;
@@ -33,14 +34,21 @@ public class ChatboxAppController
 	}
 	//always running, greeting and checks if okay to quit
 	public void start() {
-		//String result = appView.showChatbotDialog(startMessage);
+		//((ChatbotPanel) appFrame.getContentPane()).showTextMessage(startMessage);
+	}
+	
+	public String getChatbotDialog(String input)
+	{
+		String result = "";
 		
-//		while(!mySillyChatbot.QuitChecker(result)) {
-//			result = mySillyChatbot.processText(result);
-//			result = appView.showChatbotDialog(result);
-//		}
-//		
-//		Quit();
+		if(mySillyChatbot.QuitChecker(input))
+		{
+			Quit();
+		}
+		
+		result = mySillyChatbot.processText(input);
+		
+		return result;
 	}
 	
 	//Quits the appliation with message

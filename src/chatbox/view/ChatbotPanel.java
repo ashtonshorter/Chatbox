@@ -3,6 +3,8 @@ package chatbox.view;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -13,6 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
+import javax.swing.text.DefaultCaret;
 
 import chatbot.controller.ChatboxAppController;
 import chatbot.model.Chatbot;
@@ -42,6 +45,7 @@ public class ChatbotPanel extends JPanel  {
 		chatArea.setLineWrap(true);
 		chatPane = new JScrollPane(chatArea);
 		
+		//set the chat to the greeting
 		chatArea.setText(startMessage);
 		
 		setupPane();
@@ -50,8 +54,10 @@ public class ChatbotPanel extends JPanel  {
 		setupListeners();
 	}
 	
+	//setup the panel with styles
 	private void setupPane() {
 		chatArea.setWrapStyleWord(true);
+		chatArea.setLineWrap(true);
 	}
 	
 	//sets up the panel with layout options and widgets
@@ -84,20 +90,45 @@ public class ChatbotPanel extends JPanel  {
 	private void setupListeners() {
 		firstBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent click) {
-				chatArea.append("\n" + (firstTextField.getText()));
+				chatArea.append("\nYou: " + (firstTextField.getText()));
+				
+				String response = baseController.getChatbotDialog(firstTextField.getText());
+				chatArea.append("\nChatbot: " + response);
+				
 				firstTextField.setText("");
 			}
 		});
 		
+		//listen for when you hit enter, and move text to chat area
 		firstTextField.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent event) {
 				if(event.getKeyCode() == KeyEvent.VK_ENTER) {
-					chatArea.append("\n" + (firstTextField.getText()));
+					//chatArea.setForeground(Color.GREEN);
+					chatArea.append("\nYou: ");
+					//chatArea.setForeground(Color.BLACK);
+					chatArea.append((firstTextField.getText()));
+					
+					String response = baseController.getChatbotDialog(firstTextField.getText());
+					chatArea.append("\nChatbot: " + response);
+					
 					firstTextField.setText("");
 				}
 			}
 		});
+		
+		//set the scrolling to automatically go down
+		chatPane.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener()  
+		{  
+			public void adjustmentValueChanged(AdjustmentEvent e)  
+			{  
+				chatArea.select(chatArea.getCaretPosition()*12 ,chatArea.getText().length());  
+			}  
+		});  
 	}
-
 	
+	//display the message
+	public void showTextMessage(String userInput)
+	{
+		chatArea.append("\n" + userInput);
+	}
 }
