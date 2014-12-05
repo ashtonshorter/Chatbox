@@ -36,10 +36,12 @@ public class Chatbot
 		return chatCount;
 	}
 	
+	//returns user
 	public ChatbotUser getMyUser() {
 		return myUser;
 	}
 	
+	//sets user
 	public void setMyUser(ChatbotUser myUser) {
 		this.myUser = myUser;
 	}
@@ -49,6 +51,7 @@ public class Chatbot
 		this.name = name;
 	}
 	
+	//fills the meme list with memes
 	private void fillTheMemeList() {
 		memeList.add("Puppies");
 		memeList.add("Doge");
@@ -63,7 +66,7 @@ public class Chatbot
 		String processedText = "";
 		
 		
-		//ask questions to user
+		//ask questions to user and update chat
 		if(getChatCount() < 5) {
 			if(getChatCount() == 0) {
 				myUser.setUserName(userText);
@@ -91,8 +94,10 @@ public class Chatbot
 			}
 		}
 		
+		//generates random number between 0 and 6
 		int randomChoice = (int)(Math.random() * 7);
 		
+		//randomly chooses the topic while not null
 		if(userText != null) {
 			if(randomChoice == 0) {
 				if(stringChecker(userText)) {
@@ -139,6 +144,7 @@ public class Chatbot
 		return processedText;
 	}
 	
+	//if the user is mashing, return their mashing several times
 	private String mashingDetected(String input) {
 		String mashed = "";
 		
@@ -150,6 +156,7 @@ public class Chatbot
 		return mashed;
 	}
 	
+	//if they are not mashing thank them, and return what they didn't mash with
 	private String noMashingDetected(String input) {
 		String noMashing = "Thank you for not mashing your keyboard with: ";
 		

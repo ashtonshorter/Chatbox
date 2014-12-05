@@ -103,9 +103,7 @@ public class ChatbotPanel extends JPanel  {
 		firstTextField.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent event) {
 				if(event.getKeyCode() == KeyEvent.VK_ENTER) {
-					//chatArea.setForeground(Color.GREEN);
 					chatArea.append("\nYou: ");
-					//chatArea.setForeground(Color.BLACK);
 					chatArea.append((firstTextField.getText()));
 					
 					String response = baseController.getChatbotDialog(firstTextField.getText());

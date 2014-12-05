@@ -18,6 +18,7 @@ public class ChatboxAppController
 	
 	private ChatbotFrame appFrame;	//references the GUI JFrame object for the app
 	
+	//consctructor
 	public ChatboxAppController() {
 		appView = new ChatbotView(this);
 		mySillyChatbot = new Chatbot("Derf");
@@ -37,6 +38,7 @@ public class ChatboxAppController
 		//((ChatbotPanel) appFrame.getContentPane()).showTextMessage(startMessage);
 	}
 	
+	//checks if quitting, otherwise continues talking
 	public String getChatbotDialog(String input)
 	{
 		String result = "";
